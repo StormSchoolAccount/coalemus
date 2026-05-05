@@ -2,6 +2,7 @@ import { engine } from "./engine/core/engine";
 import { scene } from "./engine/core/scene";
 import { camera } from "./engine/core/camera";
 import * as THREE from "three";
+import { mesh } from "./engine/core/mesh";
 
 function main() {
     // Grab canvas from DOM
@@ -37,6 +38,9 @@ function main() {
     // Register scene in engine
     eng.scenes.push(sc);
     eng.currentScene = sc;
+
+    const cube = new mesh(new THREE.Mesh(new THREE.BoxGeometry(), new THREE.MeshBasicMaterial({ color: 0x00ff00 })));
+    sc.addChild(cube);
 
     // Start engine
     eng.start();
