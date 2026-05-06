@@ -1,14 +1,8 @@
-import { gob } from "./gob";
+import { tgob } from "./tgob";
 import * as THREE from "three";
 
-export class mesh extends gob {
-    object: THREE.Mesh;
-    position: THREE.Vector3 = new THREE.Vector3();
-    rotation: THREE.Euler = new THREE.Euler();
-    size: THREE.Vector3 = new THREE.Vector3(1, 1, 1);
-
+export class mesh extends tgob<THREE.Mesh> {
     constructor(mesh: THREE.Mesh) {
-        super();
-        this.object = mesh;
+        super(mesh);
     }
 }

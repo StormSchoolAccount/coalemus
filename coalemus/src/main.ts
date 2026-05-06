@@ -30,7 +30,7 @@ function main() {
     );
 
     // Position camera
-    cam.object.position.z = 5;
+    cam.position.z = 5;
 
     // Assign camera to scene
     sc.currentCamera = cam;
@@ -40,6 +40,7 @@ function main() {
     eng.currentScene = sc;
 
     const cube = new mesh(new THREE.Mesh(new THREE.BoxGeometry(), new THREE.MeshBasicMaterial({ color: 0x00ff00 })));
+    cube.rotation.x = 40;
     sc.addChild(cube);
 
     // Start engine
