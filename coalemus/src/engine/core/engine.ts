@@ -13,7 +13,7 @@ export class engine {
         }
 
         this.renderer = new THREE.WebGLRenderer({ canvas: this.view });
-        this.renderer.setSize(this.view.clientWidth, this.view.clientHeight);
+        this.renderer.setSize(this.view.clientWidth, this.view.clientHeight, false);
         this.renderer.setPixelRatio(window.devicePixelRatio);
 
         this.loop();
@@ -30,11 +30,12 @@ export class engine {
 
     public onViewResize() {
         if (!this.view || !this.renderer) return;
+        
+        const parent = this.view.parentElement;
+        const width = parent?.clientWidth ?? window.innerWidth;
+        const height = parent?.clientHeight ?? window.innerHeight;
 
-        const width = this.view.clientWidth || window.innerWidth;
-        const height = this.view.clientHeight || window.innerHeight;
-
-        this.renderer.setSize(width, height);
+        this.renderer.setSize(width, height, false);
 
         const cam = this.currentScene?.currentCamera?.object;
 
