@@ -5,21 +5,16 @@ import * as THREE from "three";
 import { mesh } from "./engine/core/mesh";
 
 function main() {
-    // Grab canvas from DOM
     const canvas = document.querySelector("canvas");
-
     if (!canvas) {
         throw new Error("Canvas element not found");
     }
 
-    // Create engine
     const eng = new engine();
     eng.attach(canvas);
 
-    // Create scene
     const sc = new scene();
 
-    // Create Three.js camera
     const cam = new camera(
         new THREE.PerspectiveCamera(
             75,
@@ -29,7 +24,6 @@ function main() {
         )
     );
 
-    // Position camera
     cam.position.z = 5;
 
     // Assign camera to scene
@@ -39,8 +33,10 @@ function main() {
     eng.scenes.push(sc);
     eng.currentScene = sc;
 
-    const cube = new mesh(new THREE.Mesh(new THREE.BoxGeometry(), new THREE.MeshBasicMaterial({ color: 0x00ff00 })));
-    cube.rotation.x = 40;
+    const cube = new mesh(new THREE.Mesh(new THREE.PlaneGeometry(), new THREE.MeshBasicMaterial({ color: 0x307f7f })));
+    cube.rotation.x = -Math.PI / 2;
+    cube.position.y = -3;
+    cube.size.set(50, 50, 1);
     sc.addChild(cube);
 
     // Start engine

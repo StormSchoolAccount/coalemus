@@ -13,8 +13,8 @@ export class engine {
         }
 
         this.renderer = new THREE.WebGLRenderer({ canvas: this.view });
-        this.renderer.setSize(this.view.clientWidth, this.view.clientHeight, false);
         this.renderer.setPixelRatio(window.devicePixelRatio);
+        this.onViewResize();
 
         this.loop();
     }
