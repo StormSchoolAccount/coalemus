@@ -7,6 +7,10 @@ export class scene extends gob {
     object: THREE.Scene = new THREE.Scene();
     currentCamera: camera | undefined;
 
+    public update(dt: number) {
+        dt
+    }
+
     constructor() {
         super();
 
