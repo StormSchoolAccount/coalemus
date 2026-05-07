@@ -35,8 +35,6 @@ function main() {
     sc.addChild(cube);
 
     eng.start();
-    eng.onViewResize();
-
     console.log("Engine started");
 }
 

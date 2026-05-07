@@ -47,6 +47,7 @@ export class engine {
 
     private loop = () => {
         requestAnimationFrame(this.loop);
+        this.currentScene?.update(0);
         this.render();
     };
 
