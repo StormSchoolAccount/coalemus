@@ -7,6 +7,24 @@ export class engine {
     view: HTMLCanvasElement | undefined;
     renderer: THREE.WebGLRenderer | undefined;
 
+    public addScene(scene: scene) {
+        this.scenes.push(scene);
+    }
+
+    public removeScene(scene: scene) {
+        const index = this.scenes.indexOf(scene);
+        if (index !== -1) {
+            this.scenes.splice(index, 1);
+        }
+    }
+
+    public setCurrentScene(scene: scene) {
+        if (!this.scenes.includes(scene)) {
+            this.addScene(scene);
+        }
+        this.currentScene = scene;
+    }
+    
     public start() {
         if (!this.view) {
             throw new Error("No canvas attached");
@@ -14,19 +32,23 @@ export class engine {
 
         this.renderer = new THREE.WebGLRenderer({ canvas: this.view });
         this.renderer.setPixelRatio(window.devicePixelRatio);
+
+        window.addEventListener("resize", () => {
+            this.onViewResize();
+        });
         this.onViewResize();
 
         this.loop();
+    }
+    
+    public attach(view: HTMLCanvasElement) {
+        this.view = view;
     }
 
     private loop = () => {
         requestAnimationFrame(this.loop);
         this.render();
     };
-
-    public attach(view: HTMLCanvasElement) {
-        this.view = view;
-    }
 
     public onViewResize() {
         if (!this.view || !this.renderer) return;
