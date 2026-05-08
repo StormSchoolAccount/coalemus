@@ -11,6 +11,7 @@ export class script extends gob {
         if (!this.enabled) return;
         if (!this.started) {
             this.start();
+            this.started = true;
         }
 
         this.update(dt);

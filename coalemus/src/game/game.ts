@@ -3,6 +3,8 @@ import { scene } from "../engine/core/scene";
 import { camera } from "../engine/core/tgobs/camera";
 import { mesh } from "../engine/core/tgobs/mesh";
 import * as THREE from "three";
+import { testscript } from "./scripts/test";
+import { light } from "../engine/core/tgobs/light";
 
 export class app {
     public engine: engine = new engine();
@@ -14,6 +16,7 @@ export class app {
         }
     
         this.engine.attach(canvas);
+        if (this.engine.renderer) this.engine.renderer.shadowMap.enabled = true;
     
         const sc = new scene();
     
@@ -29,12 +32,25 @@ export class app {
         sc.currentCamera = cam;
     
         this.engine.setCurrentScene(sc);
+
+        const sun = new light(new THREE.DirectionalLight(0xffffff, 1));
+        sun.rotation.x = -Math.PI / 4;
+        sun.object.castShadow = true;
+        sc.addChild(sun);
+
+        const spot = new light(new THREE.PointLight(0xffffff, 3));
+        spot.position.set(0, -1, 0);
+        spot.object.castShadow = true;
+        sc.addChild(spot);
     
-        const cube = new mesh(new THREE.Mesh(new THREE.PlaneGeometry(), new THREE.MeshBasicMaterial({ color: 0x307f7f })));
+        const cube = new mesh(new THREE.Mesh(new THREE.PlaneGeometry(), new THREE.MeshStandardMaterial({ color: 0x307f7f })));
         cube.rotation.x = -Math.PI / 2;
         cube.position.y = -3;
         cube.size.set(50, 50, 1);
         sc.addChild(cube);
+
+        const testScript = new testscript();
+        cube.addChild(testScript);
     
         this.engine.start();
         console.log("Engine started");

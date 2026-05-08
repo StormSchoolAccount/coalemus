@@ -8,9 +8,10 @@ export class engine {
     view: HTMLCanvasElement | undefined;
     renderer: THREE.WebGLRenderer | undefined;
 
-    public readonly input: input = new input;
+    public readonly input: input = new input();
 
     public addScene(scene: scene) {
+        scene._engine = this;
         this.scenes.push(scene);
     }
 
@@ -48,9 +49,13 @@ export class engine {
         this.view = view;
     }
 
+    public lastTime: number = 0;
     private loop = () => {
         requestAnimationFrame(this.loop);
-        this.currentScene?.update(0);
+        const currentTime = performance.now();
+        const dt = (currentTime - this.lastTime) / 1000;
+        this.lastTime = currentTime;
+        this.currentScene?.update(dt);
         this.render();
     };
 

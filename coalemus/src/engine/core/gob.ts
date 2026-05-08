@@ -1,5 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 import { signal } from './signal';
+import type { engine } from './engine';
 
 export class gob {
     readonly id: string = uuidv4();
@@ -11,6 +12,18 @@ export class gob {
     childRemoved = new signal<gob>();
     descendantAdded = new signal<gob>();
     descendantRemoved = new signal<gob>();
+
+    public _engine: engine | undefined;
+    public get engine(): engine | undefined {
+        if (this._engine) return this._engine;
+        var current: gob | undefined = this.parent;
+        while (current) {
+            if (current._engine) return current._engine;
+            current = current.parent;
+        }
+        return undefined;
+    }
+    
 
     public addChild(child: gob) {
         this.addchild(child);
