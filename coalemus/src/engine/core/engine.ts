@@ -1,3 +1,4 @@
+import { input } from "./input/inputmanager";
 import { scene } from "./scene";
 import * as THREE from "three";
 
@@ -6,6 +7,8 @@ export class engine {
     currentScene: scene | undefined = undefined;
     view: HTMLCanvasElement | undefined;
     renderer: THREE.WebGLRenderer | undefined;
+
+    public readonly input: input = new input;
 
     public addScene(scene: scene) {
         this.scenes.push(scene);

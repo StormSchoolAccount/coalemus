@@ -1,4 +1,4 @@
-import { gob } from "./gob";
+import { gob } from "../gob";
 import * as THREE from "three";
 
 export class tgob<T extends THREE.Object3D = THREE.Object3D> extends gob {
