@@ -5,6 +5,8 @@ import { mesh } from "../engine/core/tgobs/mesh";
 import * as THREE from "three";
 import { testscript } from "./scripts/test";
 import { light } from "../engine/core/tgobs/light";
+import { freecam } from "./scripts/freecam";
+import { HDRLoader } from "three/examples/jsm/Addons.js";
 
 export class app {
     public engine: engine = new engine();
@@ -30,6 +32,16 @@ export class app {
         );
         cam.position.z = 5;
         sc.currentCamera = cam;
+        sc.addChild(cam);
+        cam.addChild(new freecam());
+
+
+        new HDRLoader().load("/resources/hdr/studio.hdr", (texture) => {
+            texture.mapping = THREE.EquirectangularReflectionMapping;
+
+            sc.object.background = texture;
+            sc.object.environment = texture;
+        });
     
         this.engine.setCurrentScene(sc);
 
@@ -43,7 +55,14 @@ export class app {
         spot.object.castShadow = true;
         sc.addChild(spot);
     
-        const cube = new mesh(new THREE.Mesh(new THREE.PlaneGeometry(), new THREE.MeshStandardMaterial({ color: 0x307f7f })));
+        const cube = new mesh(new THREE.Mesh(new THREE.PlaneGeometry(), new THREE.MeshPhysicalMaterial({
+        color: 0xffffff,
+        metalness: 0.0,
+        roughness: 0.1,
+        transmission: 0.0, // glass
+        thickness: 0.5,
+        clearcoat: 1.0
+        })));
         cube.rotation.x = -Math.PI / 2;
         cube.position.y = -3;
         cube.size.set(50, 50, 1);

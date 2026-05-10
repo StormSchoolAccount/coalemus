@@ -29,19 +29,25 @@ export class input {
         })
         
         window.addEventListener("mousemove", (e) => {
-            this.onMouseMove.fire({type: inputType.mouse, button: e.button, position: new THREE.Vector2(e.clientX, e.clientY)});
-        })
+            this.onMouseMove.fire({type: inputType.mouse, button: e.button, position: new THREE.Vector2(e.clientX, e.clientY), delta: new THREE.Vector2(e.movementX, e.movementY)});
+        });
         
         window.addEventListener("mousedown", (e) => {
-            this.onMouseDown.fire({type: inputType.mouse, button: e.button, position: new THREE.Vector2(e.clientX, e.clientY)});
+            this.onMouseDown.fire({type: inputType.mouse, button: e.button, position: new THREE.Vector2(e.clientX, e.clientY), delta: new THREE.Vector2(e.movementX, e.movementY)});
         })
         
         window.addEventListener("mouseup", (e) => {
-            this.onMouseUp.fire({type: inputType.mouse, button: e.button, position: new THREE.Vector2(e.clientX, e.clientY)});
+            this.onMouseUp.fire({type: inputType.mouse, button: e.button, position: new THREE.Vector2(e.clientX, e.clientY), delta: new THREE.Vector2(e.movementX, e.movementY)});
         })
     }
 
     public isKeyDown(input: string) {
         return this.downKeys.has(input);
+    }
+
+    public lockPointer() {
+        if (document.body.requestPointerLock) {
+            document.body.requestPointerLock();
+        }
     }
 }

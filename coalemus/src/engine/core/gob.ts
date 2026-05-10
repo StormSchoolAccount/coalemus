@@ -5,7 +5,7 @@ import type { engine } from './engine';
 export class gob {
     readonly id: string = uuidv4();
     private children: gob[] = [];
-    parent: gob | undefined;
+    public parent: gob | undefined;
     name: string = "";
 
     childAdded = new signal<gob>();
@@ -24,6 +24,15 @@ export class gob {
         return undefined;
     }
     
+    public setParent(newParent: gob | undefined) {
+        if (newParent === this.parent) return;
+        if (this.parent) {
+            this.parent.removeChild(this);
+        }
+        if (newParent) {
+            newParent.addChild(this);
+        }
+    }
 
     public addChild(child: gob) {
         this.addchild(child);

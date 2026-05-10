@@ -10,7 +10,7 @@ export class testscript extends script {
         this.engine?.input.onKeyPress.connect((event) => {
             console.log(`Key pressed: ${event.key}`);
             if (this.engine?.currentScene && this.engine.currentScene.currentCamera) {
-                this.engine.currentScene.currentCamera.position.y -= 0.5;
+                // this.engine.currentScene.currentCamera.position.y -= 0.5;
 
                 const cube = new mesh(new THREE.Mesh(new THREE.BoxGeometry(), new THREE.MeshStandardMaterial({ color: 0x30ff7f })));
                 cube.position.y = this.engine.currentScene.currentCamera.position.y;
@@ -19,7 +19,7 @@ export class testscript extends script {
         });
 
         this.engine?.input.onMouseMove.connect((event) => {
-            console.log(`Mouse moved: ${event.position.x}, ${event.position.y}`);
+            // console.log(`Mouse moved: ${event.position.x}, ${event.position.y}`);
             this.c.position.x = (event.position.x / window.innerWidth) * 10 - 5;
             this.c.position.z = (event.position.y / window.innerHeight) * 10 - 5;
             

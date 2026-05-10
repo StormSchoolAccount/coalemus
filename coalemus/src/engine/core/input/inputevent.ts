@@ -15,4 +15,5 @@ export type mouseEvent = {
     type: typeof inputType.mouse;
     button: number;
     position: THREE.Vector2;
+    delta: THREE.Vector2;
 }
