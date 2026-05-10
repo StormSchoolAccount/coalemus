@@ -36,7 +36,7 @@ export class app {
         cam.addChild(new freecam());
 
 
-        new HDRLoader().load("/resources/hdr/studio.hdr", (texture) => {
+        new HDRLoader().load("/resources/hdr/school.hdr", (texture) => {
             texture.mapping = THREE.EquirectangularReflectionMapping;
 
             sc.object.background = texture;
@@ -45,7 +45,7 @@ export class app {
     
         this.engine.setCurrentScene(sc);
 
-        const sun = new light(new THREE.DirectionalLight(0xffffff, 1));
+        const sun = new light(new THREE.DirectionalLight(0xffffff, 0));
         sun.rotation.x = -Math.PI / 4;
         sun.object.castShadow = true;
         sc.addChild(sun);
